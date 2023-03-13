@@ -842,8 +842,8 @@ def train(args, cfg, data_dict):
                     xyz_min=xyz_min_coarse, xyz_max=xyz_max_coarse,
                     data_dict=data_dict, stage='coarse')
             eps_coarse = time.time() - eps_coarse
-            eps_time_str = f'{eps_coarse//3600:02.0f}:{eps_coarse//60%60:02.0f}:{eps_coarse%60:02.0f}'
-            print('train: coarse geometry searching in', eps_time_str)
+            eps_coarse_str = f'{eps_coarse//3600:02.0f}:{eps_coarse//60%60:02.0f}:{eps_coarse%60:02.0f}'
+            print('train: coarse geometry searching in', eps_coarse_str)
             coarse_ckpt_path = os.path.join(cfg.basedir, cfg.expname, f'coarse_last.tar')
         else:
             print('train: skip coarse geometry searching')
@@ -865,22 +865,27 @@ def train(args, cfg, data_dict):
                 data_dict=data_dict, stage='fine',
                 coarse_ckpt_path=coarse_ckpt_path)
         eps_fine = time.time() - eps_fine
-        eps_time_str = f'{eps_fine//3600:02.0f}:{eps_fine//60%60:02.0f}:{eps_fine%60:02.0f}'
-        print('train: fine detail reconstruction in', eps_time_str)
+        eps_fine_str = f'{eps_fine//3600:02.0f}:{eps_fine//60%60:02.0f}:{eps_fine%60:02.0f}'
+        print('train: fine detail reconstruction in', eps_fine_str)
 
+    eps_vq = time.time()
     vq_finetune(
             args=args, cfg=cfg,
             cfg_model=cfg.vq_model_and_render, cfg_train=cfg.vq_train,
             xyz_min=xyz_min_fine, xyz_max=xyz_max_fine,
             data_dict=data_dict, stage='vq',
             load_ckpt_path=os.path.join(cfg.basedir, cfg.expname, f'fine_last.tar'))
-    eps_fine = time.time() - eps_fine
-    eps_time_str = f'{eps_fine//3600:02.0f}:{eps_fine//60%60:02.0f}:{eps_fine%60:02.0f}'
-    print('train: fine VQ finetune reconstruction in', eps_time_str)
+    eps_vq = time.time() - eps_vq
+    eps_vq_str = f'{eps_vq//3600:02.0f}:{eps_vq//60%60:02.0f}:{eps_vq%60:02.0f}'
+    print('train: fine VQ finetune reconstruction in', eps_vq_str)
 
     eps_time = time.time() - eps_time
     eps_time_str = f'{eps_time//3600:02.0f}:{eps_time//60%60:02.0f}:{eps_time%60:02.0f}'
     print('train: finish (eps time', eps_time_str, ')')
+
+    with open(os.path.join(cfg.basedir, cfg.expname, 'time.csv'), 'w') as file:
+        file.write('eps_coarse,eps_fine,eps_vq,eps_time\n')
+        file.write(f'"{eps_coarse_str}","{eps_fine_str}","{eps_vq_str}","{eps_time_str}"\n')
 
 
 

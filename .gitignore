@@ -1,4 +1,7 @@
-
+/data
+/configs/auto
+/logs
+logs.zip
 .vscode
 
 __pycache__/
