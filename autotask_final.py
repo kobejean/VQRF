@@ -12,6 +12,8 @@ parser.add_argument("--gpus", "-g", type=str, required=True,
                                  "not considering CUDA_VISIBLE_DEVICES)")
 parser.add_argument('--eval', action='store_true', default=False,
                    help='evaluation mode (run the render_imgs script)')
+parser.add_argument('--expname',  default='baseline',
+                   help='a.k.a log  in subfloer ./logs/<expname> ')
 parser.add_argument('--configname',  default='baseline',
                    help='a.k.a config  in subfloer ./configs/batchtest/<configname>.txt ')
 
@@ -81,19 +83,19 @@ DatasetSetting={
     "syn": {
         "data": "./data/nerf_synthetic",
         "cfg": f"./configs/batch_test/{args.configname}.py",
-        "basedir":f"./logs/{args.configname}",
+        "basedir":f"./logs/{args.expname}",
         "scene_list":['chair', 'drums', 'ficus', 'hotdog', 'lego', 'materials', 'mic', 'ship']
     },
     "tnt":{
         "data": "./data/TanksAndTemple",
         "cfg": f"./configs/batch_test/{args.configname}.py",
-        "basedir":f"./logs/{args.configname}",
+        "basedir":f"./logs/{args.expname}",
         "scene_list":['Barn', 'Caterpillar', 'Family', 'Ignatius', 'Truck']
     },
     "nsvf":{
         "data": "./data/Synthetic_NSVF",
         "cfg": f"./configs/batch_test/{args.configname}.py",
-        "basedir":f"./logs/{args.configname}",
+        "basedir":f"./logs/{args.expname}",
         "scene_list":['Bike', 'Lifestyle', 'Palace', 'Robot', 'Spaceship', 'Steamtrain', 'Toad', 'Wineholder',]
     }
     
@@ -165,7 +167,7 @@ SIZE=AverageMeter('SIZE')
 
 for scene in datasetting["scene_list"]: #[ 'chair', 'drums', 'ficus', 'hotdog', 'lego', 'mic', 'materials', 'ship'   ]:
 
-    path = f'./logs/{args.configname}/{args.configname}_{scene}/render_test_vq_last/mean.txt'
+    path = f'./logs/{args.expname}/{args.configname}_{scene}/render_test_vq_last/mean.txt'
     with open(path, 'r') as f:
         lines = f.readlines()
         psnr = float(lines[0].strip())
@@ -176,7 +178,7 @@ for scene in datasetting["scene_list"]: #[ 'chair', 'drums', 'ficus', 'hotdog', 
         SSIM.update(ssim)
         LPIPS_A.update(lpips_a)
         LPIPS_V.update(lpips_v)
-        compressed_file = f'./logs/{args.configname}/{args.configname}_{scene}/extreme_saving.zip'
+        compressed_file = f'./logs/{args.expname}/{args.configname}_{scene}/extreme_saving.zip'
         if os.path.exists(compressed_file):
             size = os.path.getsize(compressed_file)/(1024*1024)
         else:
@@ -207,7 +209,7 @@ SIZE=AverageMeter('SIZE')
 
 
 for scene in datasetting["scene_list"]: #[ 'chair', 'drums', 'ficus', 'hotdog', 'lego', 'mic', 'materials', 'ship'   ]:
-    path = f'./logs/{args.configname}/{args.configname}_{scene}/render_test_fine_last/mean.txt'
+    path = f'./logs/{args.expname}/{args.configname}_{scene}/render_test_fine_last/mean.txt'
 
     with open(path, 'r') as f:
         lines = f.readlines()
@@ -219,7 +221,7 @@ for scene in datasetting["scene_list"]: #[ 'chair', 'drums', 'ficus', 'hotdog', 
         SSIM.update(ssim)
         LPIPS_A.update(lpips_a)
         LPIPS_V.update(lpips_v)
-        compressed_file = f'./logs/{args.configname}/{args.configname}_{scene}/fine_model.pth.zip'
+        compressed_file = f'./logs/{args.expname}/{args.configname}_{scene}/fine_model.pth.zip'
         if os.path.exists(compressed_file):
             size = os.path.getsize(compressed_file)/(1024*1024)
         else:

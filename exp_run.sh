@@ -1,0 +1,12 @@
+python autotask_final.py -g "0"  --configname syn_4096code --expname 0_0.9_16 --importance_include 0 --importance_prune 0.9 --codebook_size 16
+python autotask_final.py -g "0"  --configname syn_4096code --expname 0.3_0.9_16 --importance_include 0.3 --importance_prune 0.9 --codebook_size 16
+python autotask_final.py -g "0"  --configname syn_4096code --expname 0.6_0.9_16 --importance_include 0.6 --importance_prune 0.9 --codebook_size 16
+python autotask_final.py -g "0"  --configname syn_4096code --expname 0.9_0.9_16 --importance_include 0.9 --importance_prune 0.9 --codebook_size 16
+python autotask_final.py -g "0"  --configname nsfv_4096code --expname 0_0.9_16  --importance_include 0 --importance_prune 0.9 --codebook_size 16
+python autotask_final.py -g "0"  --configname nsfv_4096code --expname 0.3_0.9_16  --importance_include 0.3 --importance_prune 0.9 --codebook_size 16
+python autotask_final.py -g "0"  --configname nsfv_4096code --expname 0.6_0.9_16  --importance_include 0.6 --importance_prune 0.9 --codebook_size 16
+python autotask_final.py -g "0"  --configname nsfv_4096code --expname 0.9_0.9_16  --importance_include 0.9 --importance_prune 0.9 --codebook_size 16
+python autotask_final.py -g "0"  --configname tnt_4096code --expname 0_0.9_16  --importance_include 0 --importance_prune 0.9 --codebook_size 16
+python autotask_final.py -g "0"  --configname tnt_4096code --expname 0.3_0.9_16  --importance_include 0.3 --importance_prune 0.9 --codebook_size 16
+python autotask_final.py -g "0"  --configname tnt_4096code --expname 0.6_0.9_16  --importance_include 0.6 --importance_prune 0.9 --codebook_size 16
+python autotask_final.py -g "0"  --configname tnt_4096code --expname 0.9_0.9_16  --importance_include 0.9 --importance_prune 0.9 --codebook_size 16
