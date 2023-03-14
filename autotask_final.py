@@ -88,7 +88,7 @@ DatasetSetting={
         "data": "./data/nerf_synthetic",
         "cfg": f"./configs/batch_test/{args.configname}.py",
         "basedir":f"./logs/{args.configname}",
-        "scene_list": ['chair'] #['chair', 'drums', 'ficus', 'hotdog', 'lego', 'materials', 'mic', 'ship']
+        "scene_list": ['chair'] #['drums', 'ficus', 'hotdog', 'lego', 'materials', 'mic', 'ship']
     },
     "tnt":{
         "data": "./data/TanksAndTemple",
@@ -108,7 +108,7 @@ DatasetSetting={
 datasetting = DatasetSetting[args.dataset]
 all_tasks = []
 
-for depth in range(3,9):
+for depth in range(6,9):
     width = 128
     for scene in datasetting["scene_list"]:
         task: Dict = {}
@@ -173,7 +173,7 @@ LPIPS_V=AverageMeter('LPIPS_V')
 SIZE=AverageMeter('SIZE')
 
 
-for depth in range(3,9):
+for depth in range(6,9):
     width = 128
 
     for scene in datasetting["scene_list"]: #[ 'chair', 'drums', 'ficus', 'hotdog', 'lego', 'mic', 'materials', 'ship'   ]:

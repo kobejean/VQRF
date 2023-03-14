@@ -2,6 +2,7 @@
 /configs/auto
 /logs
 logs.zip
+logs1.zip
 .vscode
 
 __pycache__/
